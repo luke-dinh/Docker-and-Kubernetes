@@ -1,4 +1,4 @@
-FROM python:3.6
+FROM python:3.9.2
 WORKDIR /home/lukedinh/Desktop/Docker-and-Kubernetes
 COPY . .
 RUN pip install pipenv
