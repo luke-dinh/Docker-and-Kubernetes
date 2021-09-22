@@ -4,4 +4,4 @@ COPY . .
 RUN pip install pipenv
 RUN pipenv install
 EXPOSE 5000
-CMD ["pipenv", "run". "python", "api.py"]
+CMD ["pipenv", "run", "python", "api.py"]
