@@ -5,6 +5,12 @@ from keras.layers import Dense, Flatten, Dropout
 from keras.datasets import mnist
 import argparse
 
+parser = argparse.ArgumentParser("Model Serving")
+parser.add_argument("--input_shape", default=[28, 28, 1], type=list, help="Define input shape of model")
+parser.add_argument("--svae_path", default = "model/", type=str, help="Define path to save model")
+opt = parser.parse_args()
+
+
 def model(input_shape):
 
     model = Sequential()
