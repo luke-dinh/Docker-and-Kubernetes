@@ -41,3 +41,5 @@ def model(input_shape):
     model.add(Dense(10, activation='softmax'))
 
     return model
+
+model = model(input_shape=input_shape)
