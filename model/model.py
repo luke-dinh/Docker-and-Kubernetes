@@ -10,6 +10,8 @@ parser.add_argument("--input_shape", default=[28, 28, 1], type=list, help="Defin
 parser.add_argument("--svae_path", default = "model/", type=str, help="Define path to save model")
 opt = parser.parse_args()
 
+input_shape = opt.input_shape
+path = opt.save_path
 
 def model(input_shape):
 
