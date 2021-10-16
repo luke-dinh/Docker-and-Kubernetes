@@ -1,8 +1,8 @@
 import os
 import tensorflow as tf
 from keras.models import load_model
-from tensorflow.python.saved_model import builder, utils, tag_constants, signature_constants
-from tensorflow.python.saved_model.signature_def_utils_impl import build_signature_def, predict_signature_def
+from tensorflow.python.saved_model import builder, tag_constants
+from tensorflow.python.saved_model.signature_def_utils_impl import predict_signature_def
 
 # Disable eager mode
 if tf.executing_eagerly():
