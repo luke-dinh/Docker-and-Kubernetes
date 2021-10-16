@@ -4,19 +4,23 @@ from keras.models import load_model
 from tensorflow.python.saved_model import builder, tag_constants
 from tensorflow.python.saved_model.signature_def_utils_impl import predict_signature_def
 
-# Disable eager mode
-if tf.executing_eagerly():
-    tf.compat.v1.disable_eager_execution()
+# # Disable eager mode
+# if tf.executing_eagerly():
+#     tf.compat.v1.disable_eager_execution()
 
 # Convert to model evaluation
-tf.keras.backend.set_learning_phase(0) #Ignore dropout and inference
 weight_model = load_model("./model/model.h5")
+tf.keras.backend.set_learning_phase(0) #Ignore dropout and inference
 serving_path = "./serving/v1"
 
 if not os.path.exists(serving_path):
     os.makedirs(serving_path)
 
-builder = builder.SavedModelBuilder(serving_path)
+# Disable eager mode
+if tf.executing_eagerly():
+    tf.compat.v1.disable_eager_execution()
+
+builder = tf.compat.v1.saved_model.Builder(serving_path)
 
 signature = predict_signature_def( 
     inputs={ 
