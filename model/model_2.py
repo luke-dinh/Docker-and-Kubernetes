@@ -43,7 +43,7 @@ def model(input_shape):
     
     model.add(Flatten())
     model.add(Dense(128, activation='relu'))
-    model.add(Dropout(0.4))
+    model.add(Dropout(0.3))
     model.add(Dense(10, activation='softmax'))
 
     return model
@@ -77,7 +77,7 @@ print("Test acc: ", score[1])
 if not os.path.exists(path):
     os.makedirs(path)
 
-version = "v1"
+version = "v2"
 export_path = os.path.join(path, version)
 print('export_path = {}\n'.format(export_path))
 
