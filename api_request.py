@@ -29,3 +29,16 @@ def res_infer(
     })
 
     header = {"content-type": "application/json"}
+
+    json_response = requests.post( 
+        'http://{}:{}/v1/models/{}: predict'.format(host, port, model_name),
+        data=data,
+        headers=header
+    )
+
+    if json_response.status_code == 200:
+        y_pred = json.loads(json_response.text)['predictions']
+        y_pred = np.argmax(y_pred, axis=-1)
+        return y_pred
+    else:
+        return None
