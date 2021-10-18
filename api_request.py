@@ -42,3 +42,10 @@ def res_infer(
         return y_pred
     else:
         return None
+
+y_pred = res_infer(x_test)
+acc_score = accuracy_score(np.argmax(y_test, axis=-1), y_pred)
+f1 = f1_score(np.argmax(y_test, axis=-1), y_pred, average="macro")
+
+print("Accuracy Score: ", acc_score)
+print("F1 Score: ", f1)
