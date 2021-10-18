@@ -25,7 +25,7 @@ def show(idx, title):
 
 model_name='fashion_model'
 host='localhost'
-port=8501
+port=8502
 signature_name="serving_default"
 
 
@@ -40,14 +40,15 @@ data = json.dumps({
 header = {"content-type": "application/json"}
 
 json_response = requests.post( 
-        'http://{}:{}/v1/models/{}: predict'.format(host, port, model_name),
+        'http://localhost:8502/v1/models/fashion_model:predict',
         data=data,
         headers=header
     )
-y_pred = json.loads(json_response.text)['predictions']
+y_pred = json.loads(json_response.text)
+print(y_pred)
 
-show(0, 'The model thought this was a {} (class {}), and it was actually a {} (class {})'.format(
-        class_names[np.argmax(y_pred[0])], np.argmax(y_pred[0]), class_names[y_test[0]], y_test[0]))
+# show(0, 'The model thought this was a {} (class {}), and it was actually a {} (class {})'.format(
+#         class_names[np.argmax(y_pred[0])], np.argmax(y_pred[0]), class_names[y_test[0]], y_test[0]))
 
 # acc_score = accuracy_score(np.argmax(y_test, axis=-1), y_pred)
 # f1 = f1_score(np.argmax(y_test, axis=-1), y_pred, average="macro")
