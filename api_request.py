@@ -22,37 +22,32 @@ def show(idx, title):
   plt.axis('off')
   plt.title('\n\n{}'.format(title), fontdict={'size': 16})
 
-def res_infer( 
-    imgs,
-    model_name='mnist-serving',
-    host='localhost',
-    port=8501,
-    signature_name="serving_default"
-):
 
-    if imgs.ndim==3:
-        imgs = np.expand_dims(imgs, axis=0)
+model_name='fashion_model'
+host='localhost'
+port=8501
+signature_name="serving_default"
 
-    data = json.dumps({ 
+
+    # if imgs.ndim==3:
+    #     imgs = np.expand_dims(imgs, axis=0)
+
+data = json.dumps({ 
         "signature_name": signature_name,
-        "instances": imgs[0:3].tolist()
+        "instances": x_test[0:3].tolist()
     })
 
-    header = {"content-type": "application/json"}
+header = {"content-type": "application/json"}
 
-    json_response = requests.post( 
+json_response = requests.post( 
         'http://{}:{}/v1/models/{}: predict'.format(host, port, model_name),
         data=data,
         headers=header
     )
+y_pred = json.loads(json_response.text)['predictions']
 
-    if json_response.status_code == 200:
-        y_pred = json.loads(json_response.text)['predictions']
-        return y_pred
-
-result = res_infer(x_test)
 show(0, 'The model thought this was a {} (class {}), and it was actually a {} (class {})'.format(
-        class_names[np.argmax(result[0])], np.argmax(result[0]), class_names[y_test[0]], y_test[0]))
+        class_names[np.argmax(y_pred[0])], np.argmax(y_pred[0]), class_names[y_test[0]], y_test[0]))
 
 # acc_score = accuracy_score(np.argmax(y_test, axis=-1), y_pred)
 # f1 = f1_score(np.argmax(y_test, axis=-1), y_pred, average="macro")
