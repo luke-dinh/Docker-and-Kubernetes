@@ -77,7 +77,7 @@ print("Test acc: ", score[1])
 if not os.path.exists(path):
     os.makedirs(path)
 
-version = "v2"
+version = "2"
 export_path = os.path.join(path, version)
 print('export_path = {}\n'.format(export_path))
 
