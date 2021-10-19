@@ -12,7 +12,7 @@ class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat',
 (x_train, y_train), (x_test, y_test) = fashion_mnist.load_data()
 
 x_test = x_test.astype('float32') / 255.0
-x_test = x_test.reshape(x_test.shape[0], 28, 28, 1)
+x_test = x_test.reshape(-1, 28, 28, 1)
 
 y_test = keras.utils.to_categorical(y_test, num_classes=10)
 
@@ -23,7 +23,7 @@ def show(idx, title):
   plt.title('\n\n{}'.format(title), fontdict={'size': 16})
 
 
-model_name='fashion_model'
+model_name='fashion_mnist'
 host='localhost'
 port=8502
 signature_name="serving_default"
@@ -40,7 +40,7 @@ data = json.dumps({
 header = {"content-type": "application/json"}
 
 json_response = requests.post( 
-        'http://localhost:8502/v1/models/fashion_model:predict',
+        'http://localhost:8502/v1/models/fashion_mnist:predict',
         data=data,
         headers=header
     )
